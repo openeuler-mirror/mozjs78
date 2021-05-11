@@ -2,7 +2,7 @@
 
 Name:           mozjs%{major}
 Version:        78.4.0
-Release:        1
+Release:        2
 Summary:        SpiderMonkey JavaScript library
 License:        MPLv2.0 and MPLv1.1 and BSD and GPLv2+ and GPLv3+ and LGPLv2+ and AFL and ASL 2.0
 URL:            https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey
@@ -20,6 +20,8 @@ Patch06:        emitter.patch
 Patch07:        init_patch.patch
 # TODO: Check with mozilla for cause of these fails and re-enable spidermonkey compile time checks if needed
 Patch08:        spidermonkey_checks_disable.patch
+Patch09:        Update-syn-and-proc-macro2-so-that-Firefox-can-build-on-Rust-nightly-again.patch
+Patch10:        Fix-build-with-rust-nightly.patch
 
 BuildRequires:  autoconf213 cargo clang-devel gcc gcc-c++ perl-devel pkgconfig(libffi) pkgconfig(zlib) 
 BuildRequires:  python3-devel python3-six readline-devel zip nasm llvm llvm-devel icu rust
@@ -99,5 +101,11 @@ popd
 %doc js/src/README.html
 
 %changelog
+* Tue May 11 2021 zhanzhimin <zhanzhimin@huawei.com> - 78.4.0-2
+- Type:bugfix
+- ID:NA
+- SUG:NA
+- DESC:fix build error caused by rust
+
 * Thu Nov 05 2020 chengguipeng <chengguipeng1@huawei.com> - 78.4.0-1
 - Package init
