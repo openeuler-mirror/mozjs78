@@ -1,8 +1,8 @@
 %global major 78
 
 Name:           mozjs%{major}
-Version:        78.4.0
-Release:        2
+Version:        78.15.0
+Release:        1
 Summary:        SpiderMonkey JavaScript library
 License:        MPLv2.0 and MPLv1.1 and BSD and GPLv2+ and GPLv3+ and LGPLv2+ and AFL and ASL 2.0
 URL:            https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey
@@ -20,8 +20,7 @@ Patch06:        emitter.patch
 Patch07:        init_patch.patch
 # TODO: Check with mozilla for cause of these fails and re-enable spidermonkey compile time checks if needed
 Patch08:        spidermonkey_checks_disable.patch
-Patch09:        Update-syn-and-proc-macro2-so-that-Firefox-can-build-on-Rust-nightly-again.patch
-Patch10:        Fix-build-with-rust-nightly.patch
+Patch09:        Fixup-compatibility-of-mozbuild-with-Python-3.10.patch
 
 BuildRequires:  autoconf213 cargo clang-devel gcc gcc-c++ perl-devel pkgconfig(libffi) pkgconfig(zlib) 
 BuildRequires:  python3-devel python3-six readline-devel zip nasm llvm llvm-devel icu rust
@@ -80,7 +79,7 @@ ln -s libmozjs-%{major}.so.0 %{buildroot}%{_libdir}/libmozjs-%{major}.so
 popd
 
 %check
-pushd js/src
+pushd js/src 
 PYTHONPATH=tests/lib %{__python3} tests/jstests.py -d -s -t 1800 --no-progress --wpt=disabled ../../js/src/dist/bin/js%{major}
 PYTHONPATH=tests/lib %{__python3} jit-test/jit_test.py -s -t 1800 --no-progress ../../js/src/dist/bin/js%{major} basic
 popd
@@ -101,6 +100,9 @@ popd
 %doc js/src/README.html
 
 %changelog
+* Sat Dec 04 2021 wangkerong <wangkerong@huawei.com> - 78.15.0-1
+- update to 78.15.0
+
 * Tue May 11 2021 zhanzhimin <zhanzhimin@huawei.com> - 78.4.0-2
 - Type:bugfix
 - ID:NA
